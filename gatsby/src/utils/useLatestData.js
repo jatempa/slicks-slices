@@ -22,7 +22,6 @@ export default function useLatestData() {
   const [slicemasters, setSlicemasters] = useState();
 
   useEffect(() => {
-    console.log('FETCHING DATA');
     //when the component loads, fetch the data
     fetch(process.env.GATSBY_GRAPHQL_ENDPOINT, {
       method: 'POST',

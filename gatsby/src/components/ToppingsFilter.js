@@ -9,18 +9,18 @@ const ToppingsStyles = styled.div`
   margin-bottom: 4rem;
   a {
     display: grid;
-    grid-template-colums: auto 1fr;
+    grid-template-columns: auto 1fr;
     grid-gap: 0 1rem;
     align-items: center;
     padding: 5px;
     background: var(--grey);
     border-radius: 2px;
-
+    text-decoration: none;
+    font-size: clamp(1.5rem, 1.4vw, 2.5rem);
     .count {
       background: white;
       padding: 2px 5px;
     }
-
     &[aria-current='page'] {
       background: var(--yellow);
     }
@@ -29,22 +29,25 @@ const ToppingsStyles = styled.div`
 `;
 
 function countPizzasInToppings(pizzas) {
-  const counts = pizzas.map((pizza) => pizza.toppings).flat().reduce((acc, topping) => {
-    const existingTopping = acc[topping.id];
+  const counts = pizzas
+    .map((pizza) => pizza.toppings)
+    .flat()
+    .reduce((acc, topping) => {
+      const existingTopping = acc[topping.id];
 
-    if (existingTopping) {
-      existingTopping.count += 1;
-    } else {
-      acc[topping.id] = {
-        id: topping.id,
-        name: topping.name,
-        count: 1,
-      };
-    }
+      if (existingTopping) {
+        existingTopping.count += 1;
+      } else {
+        acc[topping.id] = {
+          id: topping.id,
+          name: topping.name,
+          count: 1,
+        };
+      }
 
-    return acc;
-  }, {});
-
+      return acc;
+    }, {});
+  // sort them based on their count
   const sortedToppings = Object.values(counts).sort(
     (a, b) => b.count - a.count
   );
@@ -53,6 +56,8 @@ function countPizzasInToppings(pizzas) {
 }
 
 export default function ToppingsFilter({ activeTopping }) {
+  // Get a list of all the toppings
+  // Get a list of all the Pizzas with their toppings
   const { toppings, pizzas } = useStaticQuery(graphql`
     query {
       toppings: allSanityTopping {
@@ -79,7 +84,7 @@ export default function ToppingsFilter({ activeTopping }) {
     <ToppingsStyles>
       <Link to="/pizzas">
         <span className="name">All</span>
-        <span className="count">{pizzas.nodes.lenght}</span>
+        <span className="count">{pizzas.nodes.length}</span>
       </Link>
       {toppingsWithCounts.map((topping) => (
         <Link
