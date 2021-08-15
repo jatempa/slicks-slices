@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import SEO from '../components/SEO';
 
@@ -22,33 +23,30 @@ const SingleBeerStyles = styled.div`
   }
 `;
 
-
-const BeersPage = ({ data }) => {
-  return (
-    <>
-      <SEO title={`Beers! We have ${data.beers.nodes.lenght} in stock`} />
-      <h2 className="center">
-        We have ${data.beers.nodes.length} Beers Available. Dine in Only !
-      </h2>
-      <BeerGridStyles>
-        {data.beers.nodes.map(beer => {
-          const rating = Math.round(beer.rating.average);
-          return (
-            <SingleBeerStyles key={beer.id}>
-              <img src={beer.image} alt={beer.name} />
-              <h3>{beer.name}</h3>
-              {beer.price}
-              <p title={`${rating} out of 5 stars`}>
-                {rating}
-                <span>({beer.rating.reviews})</span>
-              </p>
-            </SingleBeerStyles>
-          )
-        })}
-      </BeerGridStyles>
-    </>
-  )
-};
+const BeersPage = ({ data }) => (
+  <>
+    <SEO title={`Beers! We have ${data.beers.nodes.lenght} in stock`} />
+    <h2 className="center">
+      We have ${data.beers.nodes.length} Beers Available. Dine in Only !
+    </h2>
+    <BeerGridStyles>
+      {data.beers.nodes.map((beer) => {
+        const rating = Math.round(beer.rating.average);
+        return (
+          <SingleBeerStyles key={beer.id}>
+            <img src={beer.image} alt={beer.name} />
+            <h3>{beer.name}</h3>
+            {beer.price}
+            <p title={`${rating} out of 5 stars`}>
+              {rating}
+              <span>({beer.rating.reviews})</span>
+            </p>
+          </SingleBeerStyles>
+        );
+      })}
+    </BeerGridStyles>
+  </>
+);
 
 export default BeersPage;
 

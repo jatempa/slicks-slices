@@ -28,9 +28,7 @@ function HotSlices({ hotSlices }) {
       </h2>
       <p>Come on buy the slice!</p>
       {!hotSlices && <LoadingGrid count={4} />}
-      {hotSlices && !hotSlices?.length && (
-        <p>Nothin` in the Case</p>
-      )}
+      {hotSlices && !hotSlices?.length && <p>Nothin` in the Case</p>}
       {hotSlices?.length && <ItemGrid items={hotSlices} />}
     </div>
   );

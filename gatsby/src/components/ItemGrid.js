@@ -16,7 +16,7 @@ export default function ItemGrid({ items }) {
             alt="{item.name}"
             style={{
               background: `url(${item.image.asset.metadata.lqip})`,
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
             }}
           />
         </ItemStyles>

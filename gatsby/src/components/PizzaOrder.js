@@ -1,6 +1,6 @@
 import React from 'react';
-import MenuItemsStyles from '../styles/MenuItemStyles';
 import Img from 'gatsby-image';
+import MenuItemsStyles from '../styles/MenuItemStyles';
 import calculatePizzaPrice from '../utils/calculatePizzaPrice';
 import formatMoney from '../utils/formatMoney';
 
@@ -8,12 +8,12 @@ export default function PizzaOrder({
   order,
   pizzas,
   removeFromOrder,
-  plainImage
+  plainImage,
 }) {
   return (
     <>
       {order.map((singleOrder, index) => {
-        const pizza = pizzas.find(pizza => pizza.id == singleOrder.id);
+        const pizza = pizzas.find((p) => p.id === singleOrder.id);
 
         return (
           <MenuItemsStyles key={`${singleOrder.id}-${index}`}>

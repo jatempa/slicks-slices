@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemsGrid, ItemStyles } from "../styles/Grids";
+import { ItemsGrid, ItemStyles } from '../styles/Grids';
 
 export default function LoadingGrid({ count }) {
   return (
@@ -9,7 +9,7 @@ export default function LoadingGrid({ count }) {
           <p>
             <span className="mark">Loading ...</span>
           </p>
-          <img 
+          <img
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Uw8AAn0BfY81YKcAAAAASUVORK5CYII="
             className="loading"
             alt="Loading"

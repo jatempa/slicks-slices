@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Img from 'gatsby-image';
+import { graphql } from 'gatsby';
 import SEO from '../components/SEO';
 import useForm from '../utils/useForm';
-import Img from 'gatsby-image';
 import calculatePrice from '../utils/calculatePizzaPrice';
 import formatMoney from '../utils/formatMoney';
 import OrderStyles from '../styles/OrderStyles';
@@ -16,7 +17,7 @@ const OrdersPage = ({ data }) => {
   const { values, updateValue } = useForm({
     name: '',
     email: '',
-    mapleSyrup: ''
+    mapleSyrup: '',
   });
 
   const {
@@ -26,10 +27,10 @@ const OrdersPage = ({ data }) => {
     error,
     loading,
     message,
-    submitOrder
+    submitOrder,
   } = usePizza({
     pizzas,
-    values
+    values,
   });
 
   if (message) {
@@ -71,7 +72,12 @@ const OrdersPage = ({ data }) => {
           <legend>Menu</legend>
           {pizzas.map((pizza) => (
             <MenuItemStyles key={pizza.id}>
-              <Img width="50" height="50" fluid={pizza.image.asset.fluid} alt={pizza.name} />
+              <Img
+                width="50"
+                height="50"
+                fluid={pizza.image.asset.fluid}
+                alt={pizza.name}
+              />
               <div>
                 <h2>{pizza.name}</h2>
               </div>
@@ -79,10 +85,12 @@ const OrdersPage = ({ data }) => {
                 {['S', 'M', 'L'].map((size) => (
                   <button
                     type="button"
-                    onClick={() => addToOrder({
-                      id: pizza.id,
-                      size,
-                    })}
+                    onClick={() =>
+                      addToOrder({
+                        id: pizza.id,
+                        size,
+                      })
+                    }
                     key={size}
                   >
                     {size} {formatMoney(calculatePrice(pizza.price, size))}
@@ -101,10 +109,10 @@ const OrdersPage = ({ data }) => {
           />
         </fieldset>
         <fieldset disabled={loading}>
-          <h3>Your Total is {formatMoney(calculateOrderTotal(order, pizzas))}</h3>
-          <div>
-            {error ? <p>Error: {error} </p> : ''}
-          </div>
+          <h3>
+            Your Total is {formatMoney(calculateOrderTotal(order, pizzas))}
+          </h3>
+          <div>{error ? <p>Error: {error} </p> : ''}</div>
           <button type="submit" disabled={loading}>
             {loading ? 'Placing Order...' : 'Order Ahead'}
           </button>
@@ -112,7 +120,7 @@ const OrdersPage = ({ data }) => {
       </OrderStyles>
     </>
   );
-}
+};
 
 export default OrdersPage;
 

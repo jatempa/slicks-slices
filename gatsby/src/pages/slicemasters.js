@@ -60,14 +60,12 @@ const SlicemastersPage = ({ data, pageContext }) => {
               </h2>
             </Link>
             <Img fluid={person.image.asset.fluid} />
-            <p className="description">
-              {person.description}
-            </p>
+            <p className="description">{person.description}</p>
           </SlicemasterStyles>
         ))}
       </SlicemasterGrid>
     </>
-  )
+  );
 };
 
 export default SlicemastersPage;

@@ -8,29 +8,23 @@ const PizzasPage = ({ data, pageContext }) => {
   const pizzas = data.pizzas.nodes;
   return (
     <>
-      <SEO title={
-        pageContext.topping
-        ? `Pizzas With ${pageContext.topping}`
-        : `All Pizzas`}
+      <SEO
+        title={
+          pageContext.topping
+            ? `Pizzas With ${pageContext.topping}`
+            : `All Pizzas`
+        }
       />
       <ToppingsFilter activeTopping={pageContext.topping} />
       <PizzaList pizzas={pizzas} />
     </>
-  )
+  );
 };
 
 export const query = graphql`
   query PizzaQuery($toppingRegex: String) {
     pizzas: allSanityPizza(
-      filter: {
-        toppings: {
-          elemMatch: {
-            name: {
-              regex: $toppingRegex
-            }
-          }
-        }
-      }
+      filter: { toppings: { elemMatch: { name: { regex: $toppingRegex } } } }
     ) {
       nodes {
         name

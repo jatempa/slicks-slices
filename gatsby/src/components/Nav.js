@@ -87,7 +87,9 @@ const Nav = () => (
         <Link to="/pizzas/">Pizza Menu</Link>
       </li>
       <li className="logo-item">
-        <Link to="/"><Logo /></Link>
+        <Link to="/">
+          <Logo />
+        </Link>
       </li>
       <li>
         <Link to="/slicemasters">SliceMasters</Link>
