@@ -13,7 +13,13 @@
     "activityBarBadge.foreground": "#e7e7e7",
     "statusBar.background": "#ffc600",
     "statusBar.foreground": "#15202b",
-    "statusBarItem.hoverBackground": "#cc9e00"
+    "statusBarItem.hoverBackground": "#cc9e00",
+    "editorGroup.border": "#ffd133",
+    "panel.border": "#ffd133",
+    "sash.hoverBorder": "#ffd133",
+    "sideBar.border": "#ffd133",
+    "statusBarItem.remoteBackground": "#ffc600",
+    "statusBarItem.remoteForeground": "#15202b"
   },
   // These are all my auto-save configs
   "editor.formatOnSave": true,
