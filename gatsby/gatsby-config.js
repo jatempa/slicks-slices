@@ -7,7 +7,7 @@ export default {
     title: `Slicks Slices`,
     siteUrl: 'https://gatsby.pizza',
     description: 'The best pizza place in Hamilton!',
-    twitter: '@atempa09'
+    twitter: '@atempa09',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -18,8 +18,8 @@ export default {
         projectId: 'lo472g7d',
         dataset: 'production',
         watchMode: true,
-        token: process.env.SANITY_TOKEN
-      }
-    }
-  ]
+        token: process.env.SANITY_TOKEN,
+      },
+    },
+  ],
 };

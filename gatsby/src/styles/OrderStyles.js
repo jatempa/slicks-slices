@@ -14,6 +14,7 @@ const OrderStyles = styled.form`
     &.order,
     &.menu {
       grid-column: span 1;
+      align-content: flex-start;
     }
   }
   .mapleSyrup {

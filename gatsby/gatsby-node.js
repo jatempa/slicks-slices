@@ -22,8 +22,8 @@ async function turnPizzasIntoPages({ graphql, actions }) {
       path: `pizza/${pizza.slug.current}`,
       component: pizzaTemplate,
       context: {
-        slug: pizza.slug.current
-      }
+        slug: pizza.slug.current,
+      },
     });
   });
 }
@@ -48,8 +48,8 @@ async function turnToppingsIntoPages({ graphql, actions }) {
       component: toppingTemplate,
       context: {
         topping: topping.name,
-        toppingRegex: `/${topping.name}/i`
-      }
+        toppingRegex: `/${topping.name}/i`,
+      },
     });
   });
 }
@@ -57,27 +57,31 @@ async function turnToppingsIntoPages({ graphql, actions }) {
 async function fetchBeersAndTurnIntoNodes({
   actions,
   createNodeId,
-  createContentDigest
+  createContentDigest,
 }) {
+  // 1. Fetch a  list of beers
   const res = await fetch('https://api.sampleapis.com/beers/ale');
   const beers = await res.json();
-
+  // 2. Loop over each one
   for (const beer of beers) {
-    const nodeContent = JSON.stringify(beer);
+    // check for last 2 products and skip them.
+    if (!beer.rating.average) return;
+
+    // create a node for each beer
     const nodeMeta = {
       id: createNodeId(`beer-${beer.name}`),
       parent: null,
-      child: [],
+      children: [],
       internal: {
         type: 'Beer',
         mediaType: 'application/json',
         contentDigest: createContentDigest(beer),
-      }
-    }
-
+      },
+    };
+    // 3. Create a node for that beer
     actions.createNode({
       ...beer,
-      ...nodeMeta
+      ...nodeMeta,
     });
   }
 }
@@ -86,7 +90,7 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
   const { data } = await graphql(`
     query {
       slicemasters: allSanityPerson {
-        totalCount,
+        totalCount
         nodes {
           name
           id
@@ -104,9 +108,9 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
       path: `/slicemaster/${slicemaster.slug.current}`,
       context: {
         name: slicemaster.person,
-        slug: slicemaster.slug.current
-      }
-    })
+        slug: slicemaster.slug.current,
+      },
+    });
   });
 
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
@@ -119,24 +123,20 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
       context: {
         skip: i * pageSize,
         currentPage: i + 1,
-        pageSize
-      }
+        pageSize,
+      },
     });
   });
 }
 
 export async function sourceNodes(params) {
-  await Promise.all([
-    fetchBeersAndTurnIntoNodes(params)
-  ]);
+  await Promise.all([fetchBeersAndTurnIntoNodes(params)]);
 }
 
 export async function createPages(params) {
   await Promise.all([
     turnPizzasIntoPages(params),
     turnToppingsIntoPages(params),
-    turnSlicemastersIntoPages(params)
+    turnSlicemastersIntoPages(params),
   ]);
 }
-
-

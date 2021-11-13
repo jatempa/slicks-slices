@@ -15,10 +15,7 @@ export default function usePizza({ pizzas, values }) {
   }
 
   function removeFromOrder(index) {
-    setOrder([
-      ...order.slice(0, index),
-      ...order.slice(index + 1),
-    ])
+    setOrder([...order.slice(0, index), ...order.slice(index + 1)]);
   }
 
   async function submitOrder(e) {
@@ -33,17 +30,18 @@ export default function usePizza({ pizzas, values }) {
       total: formatMoney(calculateOrderTotal(order, pizzas)),
       name: values.name,
       email: values.email,
-      mapleSyrup: values.mapleSyrup
+      mapleSyrup: values.mapleSyrup,
     };
 
-    const res = await fetch(`
+    const res = await fetch(
+      `
       ${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       }
     );
 
@@ -65,6 +63,6 @@ export default function usePizza({ pizzas, values }) {
     error,
     loading,
     message,
-    submitOrder
-  }
+    submitOrder,
+  };
 }

@@ -31,9 +31,7 @@ export default function SinglePizzaPage({ data: { pizza } }) {
 
 export const query = graphql`
   query($slug: String!) {
-    pizza: sanityPizza(slug: {
-      current: { eq: $slug }
-    }) {
+    pizza: sanityPizza(slug: { current: { eq: $slug } }) {
       name
       id
       image {
